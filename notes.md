@@ -16,5 +16,11 @@ We'll use styled components
 `npm i styled-components`
 
 ## Server-side rendering caveats
-There is no such entities as *window*, *document* and other browser APIs on server
 
+There is no such entities as _window_, _document_ and other browser APIs on server
+
+# 4. Data loading and WebSockets
+
+## When should we load data
+
+`main` branch
