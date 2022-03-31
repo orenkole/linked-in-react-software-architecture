@@ -12,6 +12,8 @@ import {ServerStyleSheet} from "styled-components";
 
 import App from "./src/App";
 
+global.window = {};
+
 const app = express();
 
 app.use(express.static("./build", {index: false}))
@@ -44,9 +46,18 @@ app.get("/*", (req, res) => {
 		if(err) {
 			return res.status(500).send(err);
 		}
+
+		const loadedArticles = articles;
+
 		return res.send(
 			data
-				.replace('<div id="root"></div>', `<div id="root">${reactApp}</div>`)
+				.replace(
+					'<div id="root"></div>',
+					`
+						<script>window.preloadedArticles = ${JSON.stringify(loadedArticles)}</script>
+						<div id="root">${reactApp}</div>
+					`
+				)
 				.replace("{{ styles }}", sheet.getStyleTags())
 		)
 	})
